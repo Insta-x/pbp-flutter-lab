@@ -1,3 +1,4 @@
+# Tugas 7
 ## Stateless dan Stateful Widgets
 - Stateless widgets adalah widget yang tidak memiliki state. Dengan kata lain, widgets tersebut tidak menyimpan keadaan dari dirinya sendiri. Karena itu, jika ingin diubah, stateless widgets diubah oleh events external dari parent widget mereka dan tidak akan berubah sendiri.
 - Stateful widgets adalah widget yang state dirinya sendiri yang dapat berubah-ubah sepanjang waktu. State yang disimpan tersebut akan mendeskripsikan bagaimana widget tersebut dirender. Karena memiliki state, widgets ini dapat menerima events yang mengubah state mereka secara langsung.
@@ -23,3 +24,35 @@
 - Membuat function `_decrementCounter` untuk digunakan button decrement. Juga mengubah tooltips dan icon dari button.
 - Agar kedua button tidak menempel dengan ujung layar, gunakan widget `Padding`.
 - Untuk membuat button decrement menghilang ketika counter 0, membuat variabel `_minusVisible` untuk mengatur visibility dari button decrement dan memasukkan button decrement ke dalam widget `Visibility` untuk menghilangkan dan memunculkan button.
+
+# Tugas 8
+## Navigator.push dan Navigator.pushReplacement
+Pada `Navigator.push`, screen baru akan diletakkan pada top of navigation stack sehingga screen baru yang akan ditampilkan dan screen lama masih berada di dalam navigation stack. Hal ini berbeda dengan `Navigator.pushReplacement` di mana screen baru akan menggantikan screen lama yang berada di top of navigation stack sehingga screen lama tidak akan berada di dalam navigation stack lagi.
+
+## Widgets yang digunakan
+- Container, berguna untuk mengatur lokasi widgets
+- Text, berguna untuk menampilkan text
+- Column, Row, berguna untuk menata widgets dalam bentuk kolom atau baris
+- Form, berguna untuk membuat form
+- TextFormField, berguna untuk menyimpan input text sebuah form
+- DropdownButton, berguna untuk membuat dropdown
+- Padding, berguna untuk memberikan padding pada suatu widget agar lebih rapi
+- TextButton, button yang berisi text, dapat digunakan untuk mensubmit form
+- ListTile, widget yang sangat berguna untuk menampilkan sebuah informasi dalam format tertentu
+- SingleChildScrollView, berguna agar suatu widget dapat ditampilkan jika melebih layar dengan scroll
+- Card, digunakan untuk membantu menampilkan data budget
+
+## Jenis event Flutter
+- onPressed, terjadi ketika dipencet
+- onTap, terjadi ketika ditap
+- onSaved, terjadi ketika form disave
+- onChanged, terjadi ketika text form field berubah isinya
+
+## Cara kerja Navigator mengganti halaman
+Flutter memiliki sebuah navigation stack yang berisi halaman-halaman yang pernah diakses. Dalam suatu saat, Flutter akan menampilkan layar yang berada pada top of the navigation stack. Navigator dapat mengubah navigation stack ini agar menampilkan halaman-halaman yang berbeda. Salah satu cara mengubah halaman adalah dengan `push` yang akan memasukkan halaman baru ke dalam navigation stack sehingga tampilan halaman akan berubah. Navigator juga dapat melakukan `pop` untuk membuang halaman yang berada pada top of the navigation stack sehingga halaman yang berada di posisi kedua dari top akan menjadi top dan ditampilkan. Navigator juga dapat menggunakan `pushReplacement` untuk mengganti halaman yang berada pada top of the navigation stack sehingga halaman tersebut tidak akan berada di dalam stack lagi dan langsung digantikan halaman baru.
+
+## Implementasi Checklist
+- Membuat `drawer.dart` yang berisi `AppDrawer` untuk digunakan halaman lain. Import `drawer.dart` pada halaman lain untuk menggunakan `AppDrawer` sebagai drawer setiap halaman.
+- Pada `AppDrawer` menambahkan 3 children berupa tombol yang akan melakukan `pushReplacement` ke halaman yang sesuai dengan tombol masing-masing.
+- Membuat `form.dart` yang berisi form untuk menambahkan budget. Menggunakan 2 `TextFormField` untuk judul dan nominal dan sebuah `DropdownButton` untuk jenis budget. `TextFormField` nominal diatur agar hanya menerima input angka. Kemudian membuat button yang melakukan save form. Membuat `budget.dart` untuk memudahkan penyimpanan data budget yang sudah ditambahkan. Menggunakan function `saveBudget` pada `budget.dart` ketika kita ingin menyimpan form.
+- Membuat `data.dart` untuk menampilkan data budget yang sudah disimpan. Data budget diambil dari `budgetList` dari `budget.dart`. Menggunakan function `map` untuk membuat `Card` untuk setiap data budget yang telah disimpan.
