@@ -18,15 +18,17 @@ class _DataPageState extends State<DataPage> {
         title: Text('Data Budget'),
       ),
       drawer: AppDrawer(),
-      body: Column(
-        children: Budget.budgetList.map((budget) {
-          return Card(
-            child: ListTile(
-                title: Text(budget.judul),
-                subtitle: Text('${budget.nominal}'),
-                trailing: Text(budget.jenis)),
-          );
-        }).toList(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: Budget.budgetList.map((budget) {
+            return Card(
+              child: ListTile(
+                  title: Text(budget.judul),
+                  subtitle: Text('${budget.nominal}'),
+                  trailing: Text(budget.jenis)),
+            );
+          }).toList(),
+        ),
       ),
     );
   }
