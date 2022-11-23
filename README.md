@@ -56,3 +56,31 @@ Flutter memiliki sebuah navigation stack yang berisi halaman-halaman yang pernah
 - Pada `AppDrawer` menambahkan 3 children berupa tombol yang akan melakukan `pushReplacement` ke halaman yang sesuai dengan tombol masing-masing.
 - Membuat `form.dart` yang berisi form untuk menambahkan budget. Menggunakan 2 `TextFormField` untuk judul dan nominal dan sebuah `DropdownButton` untuk jenis budget. `TextFormField` nominal diatur agar hanya menerima input angka. Kemudian membuat button yang melakukan save form. Membuat `budget.dart` untuk memudahkan penyimpanan data budget yang sudah ditambahkan. Menggunakan function `saveBudget` pada `budget.dart` ketika kita ingin menyimpan form.
 - Membuat `data.dart` untuk menampilkan data budget yang sudah disimpan. Data budget diambil dari `budgetList` dari `budget.dart`. Menggunakan function `map` untuk membuat `Card` untuk setiap data budget yang telah disimpan.
+
+# Tugas 9
+## Pengambilan data JSON tanpa model
+Kita tetap bisa melakukan pengambilan data tanpa menggunakan model. Hal ini karena pengambilan data atau melakukan HTTP request tidak ada hubungannya dengan model. Meskipun begitu, kita dapat menggunakan bantuan model untuk menyimpan data JSON yang telah kita terima agar lebih mudah diproses.
+
+## Widgets
+- Container, berguna untuk mengatur lokasi widgets
+- Text, berguna untuk menampilkan text
+- Column, Row, berguna untuk menata widgets dalam bentuk kolom atau baris
+- FutureBuilder, berguna untuk melakukan build dengan data future (harus menunggu http request)
+- ListView, berguna untuk membuat banyak widget sekaligus dan memastikan jika berlebihan children maka bisa discroll
+- InkWell, berguna agar card dapat ditekan dan memberikan ripple animation
+- Card, digunakan untuk membantu menampilkan data watchlist
+- ElevatedButton, button biasa yang terlihat "diangkat" agar meningkatkan penampilan
+- TextSpan, berguna agar dapat menggunakan beberapa text pada 1 baris dengan style yang berbeda-beda
+
+## Mekanisme JSON ke tampilan layar
+Pertama flutter akan memanggil `fetchWatchList()` untuk melakukan HTTP GET request ke `https://pbp-tugas-2-insta-x.herokuapp.com/mywatchlist/json/` untuk mendapatkan data watch list dalam bentuk JSON.
+Setelah mendapatkan data watch list dalam bentuk JSON, `fetchWatchList()` akan menggunakan model `Watch` dan menggunakan data JSON yang diterima untuk meng-construct `Watch`.
+Data semua `Watch` yang telah di-construct kemudian diterima oleh `FutureBuilder`. `FutureBuilder` kemudian akan build semua `Card` sesuai dengan format yang sudah diberikan untuk setiap film yang ada di dalam list data yang diterima. Semua data `Watch` juga disimpan agar digunakan sebagai context ketika membuka halaman detail.
+
+## Implementasi Checklist
+- Membuat `mywatchlist.html` yang berisi page yang akan digunakan untuk MyWatchList. Kemudian, memasukkan `ListTile` baru yang merujuk pada `mywatchlist.html` pada Drawer.
+- Membuat `watchlist.html` yang berisi class `Watch` untuk menyimpan data sebuah film pada watch list.
+- Membuat `fetch_mywatchlist.dart` yang berisi fungsi `fetchWatchList()` untuk melakukan fetch data watch list dari endpoint JSON Tugas 3. Kemudian, nengisi `mywatchlist.html` dengan `FutureBuilder` yang akan menggunakan data `fetchWatchList()` untuk build semua `Card` film pada watch list. Setiap `Card` berisi title dari setiap film
+- Menggunakan `InkWell` agar `Card` bisa ditekan. Ketika `InkWell` ditekan, melakukan `Navigator.push` ke halaman detail dengan context data film yang berhubungan dengan card tersebut.
+- Mengisi `watchlist_detail.dart` dengan widget-widget seperti TextSpan untuk menampilkan data film yang berhubugan dari context yang diberikan oleh `mywatchlist.html` ketika memasuki halaman ini.
+- Membuat tombol Back pada bagian bawah halaman yang melakukan `Navigator.pop` untuk kembali ke halaman `mywatchlist.html`
